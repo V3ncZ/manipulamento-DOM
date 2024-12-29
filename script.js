@@ -5,6 +5,8 @@ const botaoSalvarItem = document.getElementById('botao-salvar-item');
 // Declara uma variavel para a ul
 const listaDeCompras = document.getElementById('lista-de-compras');
 
+const listaComprados = document.getElementById('lista-comprados');
+
 // Adiciona um evento ao botão de salvar
 botaoSalvarItem.addEventListener('click', adicionarItem);
 
@@ -52,11 +54,17 @@ function adicionarItem(evento) {
         // Cria uma variável para a checkbox customizada
         const checkboxCustomizado = evento.currentTarget.querySelector('.checkbox-customizado');
 
+        const itemTitulo = evento.currentTarget.closest('li').querySelector('#item-titulo');
+
         // Coloca ou remove a classe 'checked' no input
         if (checkboxInput.checked) {
             checkboxCustomizado.classList.add('checked');
+            itemTitulo.style.textDecoration = "line-through";
+            listaComprados.appendChild(itemDaLista);
         } else {
             checkboxCustomizado.classList.remove('checked');
+            itemTitulo.style.textDecoration = "none";
+            listaDeCompras.appendChild(itemDaLista);
         }
     })
 
@@ -75,6 +83,7 @@ function adicionarItem(evento) {
     containerNomeDoItem.appendChild(containerCheckbox);
 
     const nomeDoItem = document.createElement('p');
+    nomeDoItem.id = "item-titulo"
     // Colocando o nome do item dentro do paragrafo
     nomeDoItem.innerText = item.value;
 
@@ -111,8 +120,18 @@ function adicionarItem(evento) {
     containerItemLista.appendChild(containerNomeDoItem);
     // Colocando a div dos botoes dentro da div do item
     containerItemLista.appendChild(containerBotoes);
+    
+    // Cria um elemento p que segura a data
+    const itemData = document.createElement('p');
+    // Colocando a data dentro do paragrafo
+    itemData.innerText = `${new Date().toLocaleDateString('pt-BR', {weekday: 'long'})} (${new Date().toLocaleDateString()}) às ${new Date().toLocaleTimeString('pt-BR', {hour: 'numeric', minute: 'numeric'})}`;
+
+    itemData.classList.add('texto-data');
+
     // Colocando a div dos itens dentro da li
     itemDaLista.appendChild(containerItemLista);
+    // Colocando a data dentro da li
+    itemDaLista.appendChild(itemData);
     // Colocando a li dentro da ul
     listaDeCompras.appendChild(itemDaLista);
 }
