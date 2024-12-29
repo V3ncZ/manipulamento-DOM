@@ -1,4 +1,9 @@
+import { ediarItem } from "./editarItem.js";
+import { excluirItem } from "./excluirItem.js";
+
+
 const listaComprados = document.getElementById('lista-comprados');
+const listaDeCompras = document.getElementById('lista-de-compras');
 
 // Cria uma variavel para o contador
 let contador = 0;
@@ -85,12 +90,20 @@ export function criarItemDaLista(item) {
     imagemExcluirItem.src = 'img/delete.svg';
     imagemExcluirItem.alt = 'Excluir item';
 
+    botaoExcluirItem.addEventListener('click', function(){
+        excluirItem(itemDaLista);
+    });
+
     const botaoEditarItem = document.createElement('button');
     botaoEditarItem.classList.add('item-lista-button');
 
     const imagemEditarItem = document.createElement('img');
     imagemEditarItem.src = 'img/edit.svg';
     imagemEditarItem.alt = 'Editar item';
+
+    botaoEditarItem.addEventListener('click', function(){
+        ediarItem(itemDaLista);
+    });
 
 
     // Colocando o p dentro da div
